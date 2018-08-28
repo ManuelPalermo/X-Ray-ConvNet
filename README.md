@@ -11,11 +11,12 @@ Preprocessing was applied before training, and images saved to ./database_prepro
 The preprocessing consists in:
   * Applying Contrast Limited Adaptive Histogram Equalization (CLAHE) to increase contrast
   * Resize images from 1024x1024p to 128x128p
+  <br>
 ![Xray after applying contrast](https://i.imgur.com/Z9aIY77.png)
 
 
 # Usage
-  *Download the ChestX-ray14 database from [here](https://nihcc.app.box.com/v/ChestXray-NIHCC/folder/37178474737)
-  *Unpack archives in separate directories (e.g. images_001.tar.gz into images_001)
-  *Run PreprocessData.py to create new database with processed data(increased contrast, image downsize(128x128))
-  *Run python Main.py with desired Parameters
+  * Download the ChestX-ray14 database from [here](https://nihcc.app.box.com/v/ChestXray-NIHCC/folder/37178474737)
+  * Unpack archives in separate directories (e.g. images_001.tar.gz into images_001)
+  * Run PreprocessData.py to create new database with processed data(increased contrast, image downsize(128x128))
+  * Run python Main.py with desired Parameters

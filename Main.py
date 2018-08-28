@@ -27,8 +27,8 @@ image_shape = (128, 128, 1) # changes require reprocessing images
 model_learn_rate = 0.00001
 
 #decrease resource usage:
-idle_time_on_batch = 0.2
-idle_time_on_epoch = 20
+idle_time_on_batch = 0.1
+idle_time_on_epoch = 30
 #####################################################################
 
 

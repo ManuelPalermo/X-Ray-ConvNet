@@ -70,7 +70,7 @@ if not test_trained_model:
 	model.compile(optimizer=optimizer, loss="binary_crossentropy", metrics=['acc'])
 
 	learning_rate_reduction = ReduceLROnPlateau(monitor='val_loss',
-	                                            patience=10,
+	                                            patience=5,
 	                                            verbose=1,
 	                                            factor=0.5,
 	                                            min_lr=0.000000001)

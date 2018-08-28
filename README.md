@@ -1,5 +1,5 @@
 # X-Ray Convolutional Neural Network
-A Keras simplified implementation based on [ChesXNet](https://github.com/zoogzog/chexnet) for pathology detection in frontal chest X-ray images which is in turn based based on the original paper presented [here](https://stanfordmlgroup.github.io/projects/chexnet/). 
+A Keras simplified implementation based on [ChesXNet](https://github.com/zoogzog/chexnet) for pathology detection in frontal chest X-ray images which was in turn based on the original paper presented [here](https://stanfordmlgroup.github.io/projects/chexnet/). 
 Learning was the main motivation for this work.
 
 

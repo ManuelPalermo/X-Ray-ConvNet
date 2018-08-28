@@ -10,7 +10,7 @@ The ChestX-ray dataset comprises 112,120 frontal-view chest X-ray with 14 diseas
 
 # Preprocessing
 Preprocessing was applied before training, and images saved to new databse (./database_preprocessed/...)
-<br>
+<br><br>
 The preprocessing consists in:
   * Applying Contrast Limited Adaptive Histogram Equalization (CLAHE) to increase contrast
   * Resize images from 1024x1024p to 128x128p

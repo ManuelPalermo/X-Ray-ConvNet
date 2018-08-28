@@ -1,4 +1,4 @@
 # X-Ray-ConvNet
 CNN for Chest X-Ray Classification
 
-![Xray after preprocessing(contrast)](https://i.imgur.com/uTdmzUPg.jpg)
+![Xray after applying contrast](https://i.imgur.com/Z9aIY77.png)

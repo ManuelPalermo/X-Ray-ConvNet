@@ -12,7 +12,6 @@ class BinaryModel:
 
 	def create_model(self):
 		'Creates the keras model for binary output'
-		# if smaller image_dimensions are used, reduce the number of pooling layers
 		model = Sequential()
 
 		model.add(Conv2D(filters=32, kernel_size=(3, 3), padding='Same', activation='elu', input_shape=self.input_dim))

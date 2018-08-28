@@ -9,7 +9,7 @@ The ChestX-ray dataset comprises 112,120 frontal-view chest X-ray with 14 diseas
 
 
 # Preprocessing
-Preprocessing was applied before training, and images saved to ./database_preprocessed/
+Preprocessing was applied before training, and images saved to new databse (./database_preprocessed/...)<br>
 The preprocessing consists in:
   * Applying Contrast Limited Adaptive Histogram Equalization (CLAHE) to increase contrast
   * Resize images from 1024x1024p to 128x128p
@@ -30,4 +30,4 @@ The preprocessing consists in:
 
 # Results
 The model was able to achieve ~69% accuracy on test data, after 5h of training on a GTX 950M with only 15k training images.
-Better results could certainly be achieved over a longer training period, with more data and with access to better hardware.
+Better results could certainly be achieved over a longer training period, with more data.

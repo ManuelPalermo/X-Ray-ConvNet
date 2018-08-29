@@ -28,9 +28,3 @@ The preprocessing consists in:
   * Run PreprocessData.py to create new database with processed data.
   * Unpack model_weights.rar.
   * Run Main.py with desired Parameters.
-  
-  
-
-# Results
-The model was able to achieve ~69% accuracy on test data, after 4h of training on a GTX 950M with only 15k training images.
-Better results could certainly be achieved over a longer training period, with more data and with closer to optimal hyperparameters.

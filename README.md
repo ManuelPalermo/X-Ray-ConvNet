@@ -31,5 +31,5 @@ The preprocessing consists in:
   
 
 # Results
-The model was able to achieve ~69% accuracy on test data, after 5h of training on a GTX 950M with only 15k training images.
-Better results could certainly be achieved over a longer training period, with more data and with more optimal hyperparameters.
+The model was able to achieve ~69% accuracy on test data, after 4h of training on a GTX 950M with only 15k training images.
+Better results could certainly be achieved over a longer training period, with more data and with closer to optimal hyperparameters.

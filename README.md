@@ -26,6 +26,7 @@ The preprocessing consists in:
   * Download the ChestX-ray14 database from [here](https://nihcc.app.box.com/v/ChestXray-NIHCC/folder/37178474737).
   * Unpack archives in separate directories (e.g. images_001.tar.gz into images_001).
   * Run PreprocessData.py to create new database with processed data.
+  * Unpack model_weights.rar.
   * Run Main.py with desired Parameters.
   
   

@@ -28,3 +28,9 @@ The preprocessing consists in:
   * Run PreprocessData.py to create new database with processed data.
   * Unpack model_weights.rar.
   * Run Main.py with desired Parameters.
+  
+# Results
+The custom neural Network was able to achive an accuracy of 70% on the test data after 4h of imcomplete training on a GTX950M, using a small portion of the dataset(10k images). The NN model selection and training time/samples was limited by the hardware and it´s availability for training.
+##### Better results could be achieved by using:
+  * More data and longer training times.
+  * Better NN models.

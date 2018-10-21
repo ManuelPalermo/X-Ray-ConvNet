@@ -35,4 +35,4 @@ The custom neural Network was able to achive an accuracy of 70% on the test data
   * More data and longer training times.
   * Better NN models.
   * Diferent Preprocessing(bigger images).
-  * Better hyperparemeters
+  * Adequate hyperparemeters.

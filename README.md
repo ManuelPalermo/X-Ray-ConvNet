@@ -32,7 +32,7 @@ The preprocessing consists in:
 # Results
 The custom neural Network was able to achive an accuracy of 70% on the test data after 4h of imcomplete training on a GTX950M, using a small portion of the dataset(10k images). The NN model selection and training time/samples was limited by the hardware and it´s availability for training.
 ##### Better results could be achieved by using:
+  * Better hardware(GPU memory didnt allow for bigger models/batches/image sizes)
   * More data and longer training times.
   * Better NN models.
-  * Diferent Preprocessing(bigger images).
-  * Adequate hyperparemeters.
+  * Diferent Preprocessing.

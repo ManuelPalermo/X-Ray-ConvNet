@@ -15,14 +15,14 @@ class DataGenerator(keras.utils.Sequence):
 		self.batch_size   = batch_size
 		self.shuffle      = shuffle
 		self.augment      = augment
-		self.on_epoch_start()
+		self.on_epoch_end()
 
 
 	def __len__(self):
 		'Denotes the number of batches per epoch'
 		return int(np.ceil(len(self.images_paths) / self.batch_size))
 
-	def on_epoch_start(self):
+	def on_epoch_end(self):
 		'Updates indexes after each epoch'
 		self.indexes = np.arange(len(self.images_paths))
 		if self.shuffle:

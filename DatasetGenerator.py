@@ -46,7 +46,7 @@ class DataGenerator(keras.utils.Sequence):
 		#input()
 		#####
 
-		images /= 255.
+		images = images.astype(np.float32) / 255.
 		return images, labels
 	
 	

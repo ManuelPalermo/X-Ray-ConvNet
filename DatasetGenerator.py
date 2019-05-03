@@ -1,10 +1,10 @@
 import numpy as np
 import keras
 import cv2
-#from skimage import io
 import matplotlib.pyplot as plt
-from keras.preprocessing.image import ImageDataGenerator
 
+import imgaug as ia
+from imgaug import augmenters as iaa
 
 class DataGenerator(keras.utils.Sequence):
 	'Generates data for Keras'
@@ -32,30 +32,12 @@ class DataGenerator(keras.utils.Sequence):
 		'Generate one batch of data'
 		# Selects indices of data for next batch
 		indexes = self.indexes[index*self.batch_size : (index + 1)*self.batch_size]
-		batch_image  = [self.images_paths[k] for k in indexes]
-		batch_labels = [self.labels[k] for k in indexes]
-
-		# Generate data
-		images, labels = self._data_generation(batch_image, batch_labels)
-
-		# Augment data
+		images = np.array([cv2.imread(self.images_paths[k]) for k in indexes], dtype=np.uint8)
+		labels = np.array([self.labels[k] for k in indexes])
+		
 		if self.augment == True:
-			aug_images = ImageDataGenerator(
-						featurewise_center=False,  # set input mean to 0 over the dataset
-						samplewise_center=False,  # set each sample mean to 0
-						featurewise_std_normalization=False,  # divide inputs by std of the dataset
-						samplewise_std_normalization=False,  # divide each input by its std
-						zca_whitening=False,  # apply ZCA whitening
-						rotation_range=20,  # randomly rotate images in the range (degrees, 0 to 180)
-						zoom_range=0.05,  # randomly zoom image
-						shear_range=0.15,  # randomly shear image
-						width_shift_range=0.1,  # randomly shift images horizontally (fraction of total width)
-						height_shift_range=0.1,  # randomly shift images vertically (fraction of total height)
-						horizontal_flip=False,  # randomly flip images horizontally
-						vertical_flip=False,  # randomly flip images vertically
-						fill_mode='constant')  # how to fill newly created pixels (which appear for example after a rotation)
-			aug_images.fit(images)
-			images, labels = aug_images.flow(images, labels, batch_size=self.batch_size).next()
+		    images = self.augmentor(images)
+		
 		#####prints examples of input images which will be fed to the NN
 		#for (img, lbl) in zip(images,labels):
 		#	plt.imshow(img[:,:,0], cmap='gray')
@@ -63,15 +45,74 @@ class DataGenerator(keras.utils.Sequence):
 		#	plt.show()
 		#input()
 		#####
-		return images, labels
 
-	def _data_generation(self, batch_images, batch_labels):
-		'Generates data containing batch_size samples'
-		# Initialization
-		images = np.empty((self.batch_size, *self.dim))
-		labels = np.empty((self.batch_size, 1), dtype=np.int8)
-		# Generate data
-		for i, (img_path, img_label) in enumerate(zip(batch_images, batch_labels)):
-			images[i] = cv2.imread(img_path).reshape(self.dim)
-			labels[i] = img_label
+		images /= 255.
 		return images, labels
+	
+	
+	def augmentor(self, images):
+		'Apply data augmentation'
+		sometimes = lambda aug: iaa.Sometimes(0.5, aug)
+		seq = iaa.Sequential(
+				[
+						# apply the following augmenters to most images
+						sometimes(iaa.Affine(
+								scale={"x": (0.9, 1.1), "y": (0.9, 1.1)},
+								# scale images to 80-120% of their size, individually per axis
+								translate_percent={"x": (-0.1, 0.1), "y": (-0.1, 0.1)},
+								# translate by -20 to +20 percent (per axis)
+								rotate=(-10, 10),  # rotate by -45 to +45 degrees
+								shear=(-5, 5),  # shear by -16 to +16 degrees
+								order=[0, 1],
+								# use any of scikit-image's warping modes (see 2nd image from the top for examples)
+						)),
+						# execute 0 to 5 of the following (less important) augmenters per image
+						# don't execute all of them, as that would often be way too strong
+						iaa.SomeOf((0, 5),
+						           [iaa.OneOf([
+								            iaa.GaussianBlur((0, 1.0)),
+								            # blur images with a sigma between 0 and 3.0
+								            iaa.AverageBlur(k=(3, 5)),
+								            # blur image using local means with kernel sizes between 2 and 7
+								            iaa.MedianBlur(k=(3, 5)),
+								            # blur image using local medians with kernel sizes between 2 and 7
+						            ]),
+						            iaa.Sharpen(alpha=(0, 1.0), lightness=(0.9, 1.1)),
+						            # sharpen images
+						            iaa.Emboss(alpha=(0, 1.0), strength=(0, 2.0)),
+						            # emboss images
+						            iaa.AdditiveGaussianNoise(loc=0,
+						                                      scale=(0.0, 0.01 * 255),
+						                                      per_channel=0.5),
+						            # add gaussian noise to images
+						            iaa.Invert(0.01, per_channel=True),
+						            # invert color channels
+						            iaa.Add((-2, 2), per_channel=0.5),
+						            # change brightness of images (by -10 to 10 of original value)
+						            iaa.AddToHueAndSaturation((-1, 1)),
+						            # change hue and saturation
+						            # either change the brightness of the whole image (sometimes
+						            # per channel) or change the brightness of subareas
+						            iaa.OneOf([
+								            iaa.Multiply((0.9, 1.1), per_channel=0.5),
+								            iaa.FrequencyNoiseAlpha(
+										            exponent=(-1, 0),
+										            first=iaa.Multiply((0.9, 1.1),
+										                               per_channel=True),
+										            second=iaa.ContrastNormalization(
+												            (0.9, 1.1))
+								            )
+						            ]),
+						            sometimes(iaa.ElasticTransformation(alpha=(0.5, 3.5),
+						                                                sigma=0.25)),
+						            # move pixels locally around (with random strengths)
+						            sometimes(iaa.PiecewiseAffine(scale=(0.01, 0.05))),
+						            # sometimes move parts of the image around
+						            sometimes(iaa.PerspectiveTransform(scale=(0.01, 0.1)))
+						            ],
+						           random_order=True
+						           )
+				],
+				random_order=True
+		)
+		return seq.augment_images(images)

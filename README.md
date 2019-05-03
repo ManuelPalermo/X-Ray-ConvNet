@@ -10,12 +10,12 @@ The ChestX-ray dataset comprises 112,120 frontal-view chest X-ray with 14 diseas
 
 
 # Preprocessing
-Preprocessing was applied before training, and images saved to new databse (./database_preprocessed/...).
+Preprocessing was applied before training, to reduce in-train cpu time, and images were saved to a new databse (./database_preprocessed/...).
 <br><br>
-The preprocessing consists in:
-  * Applying Contrast Limited Adaptive Histogram Equalization (CLAHE) to correct contrast.
+The preprocessing consisted on:
+  * Applying Contrast Limited Adaptive Histogram Equalization (CLAHE) to correct contrast(might introduce some error).
   * Resize images from 1024x1024p to 128x128p (Bigger dimensions would be preferable as most often patologies appear on a small area on the image, which might get lost or distorted upon resize. The dimensions were limited by the GPU memory).
-  
+
   
 ![Xray after applying contrast](https://i.imgur.com/Z9aIY77.png)
 

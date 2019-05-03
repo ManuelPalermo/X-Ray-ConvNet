@@ -27,11 +27,3 @@ The preprocessing consists in:
   * Unpack archives in separate directories (e.g. images_001.tar.gz into images_001).
   * Run PreprocessData.py to create new database with processed data.
   * Run Main.py with desired Parameters.
-  
-# Results
-The custom neural Network was able to achive an accuracy of 70% on the test data after 3h(15min/batch) of incomplete training on a GTX950M, using a small portion of the dataset(15k images). The NN model selection and training time/samples was limited by the hardware and it´s availability for training.
-##### Better results could be achieved by using:
-  * Better hardware(GPU memory didnt allow for bigger models/batches/image sizes)
-  * More data and longer training times.
-  * Better NN models.
-  * Diferent Preprocessing.

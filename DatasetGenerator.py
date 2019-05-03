@@ -20,7 +20,7 @@ class DataGenerator(keras.utils.Sequence):
 
 	def __len__(self):
 		'Denotes the number of batches per epoch'
-		return self.images_paths.shape[0] // self.batch_size
+		return int(np.ceil(len(self.images_paths) / self.batch_size))
 
 	def on_epoch_start(self):
 		'Updates indexes after each epoch'

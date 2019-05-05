@@ -38,8 +38,7 @@ class BinaryModel:
 		'Returns a mobilenet architecture NN'
 		mobile_net_model = mobilenetv2.MobileNetV2(input_shape=self.input_dim,
 							                        weights='imagenet',
-							                        include_top=False,
-							                        classes=1)
+							                        include_top=False)
 		#freeze base layers
 		if percent2retrain<1:
 			for layer in mobile_net_model.layers[:-int(len(mobile_net_model.layers)*percent2retrain)]: layer.trainable = False
@@ -58,8 +57,7 @@ class BinaryModel:
 		'Returns a mobilenet architecture NN'
 		nas_mobile_model = NASNetMobile(input_shape=self.input_dim,
                                         weights='imagenet',
-                                        include_top=False,
-                                        classes=1)
+                                        include_top=False)
 		# freeze base layers
 		if percent2retrain < 1:
 			for layer in nas_mobile_model.layers[:-int(len(nas_mobile_model.layers)*percent2retrain)]: layer.trainable = False
@@ -78,8 +76,7 @@ class BinaryModel:
 		'Returns a Densenet121 architecture NN'
 		dense_model = densenet.DenseNet121(input_shape=self.input_dim,
                                            weights='imagenet',
-                                           include_top=False,
-                                           classes=1)
+                                           include_top=False)
 		# freeze base layers
 		if percent2retrain < 1:
 			for layer in dense_model.layers[:-int(len(dense_model.layers)*percent2retrain)]: layer.trainable = False
@@ -98,8 +95,7 @@ class BinaryModel:
 		'Returns a Densenet169 architecture NN'
 		dense_model = densenet.DenseNet169(input_shape=self.input_dim,
 		                                   weights='imagenet',
-		                                   include_top=False,
-		                                   classes=1)
+		                                   include_top=False)
 		# freeze base layers
 		if percent2retrain < 1:
 			for layer in dense_model.layers[:-int(len(dense_model.layers)*percent2retrain)]: layer.trainable = False
@@ -118,8 +114,8 @@ class BinaryModel:
 		'Returns a Xception architecture NN'
 		xception_model= Xception(input_shape=self.input_dim,
                                weights='imagenet',
-                               include_top=False,
-                               classes=1)
+                               include_top=False)
+		
 		# freeze base layers
 		if percent2retrain < 1:
 			for layer in xception_model.layers[:-int(len(xception_model.layers)*percent2retrain)]: layer.trainable = False
@@ -182,7 +178,7 @@ class BinaryModel:
 
 		#dense block with activation function
 		model.add(Flatten())
-		model.add(Dense(32, activation="relu"))
+		model.add(Dense(128, activation="relu"))
 		model.add(Dropout(0.5))
 		model.add(Dense(self.n_classes, activation="sigmoid"))
 		return model
